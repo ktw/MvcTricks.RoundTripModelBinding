@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcTricks.RoundTripModelBinding", "MvcTricks.RoundTripModelBinding\MvcTricks.RoundTripModelBinding.csproj", "{04C23517-FC74-436B-8A8E-C106FF6C8734}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcTricks.RoundTripModelBinding", "src\MvcTricks.RoundTripModelBinding.csproj", "{04C23517-FC74-436B-8A8E-C106FF6C8734}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget_Packages", "Nuget_Packages", "{6F356B10-6020-4946-9806-B5F121756F8A}"
 	ProjectSection(SolutionItems) = preProject
 		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.0.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.0.0.nupkg
 		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.1.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.1.0.nupkg
+		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.2.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.2.0.nupkg
 	EndProjectSection
 EndProject
 Global
