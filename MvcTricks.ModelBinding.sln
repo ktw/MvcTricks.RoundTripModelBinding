@@ -1,35 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcTricks.RoundTripModelBinding", "MvcTricks.RoundTripModelBinding\MvcTricks.RoundTripModelBinding.csproj", "{04C23517-FC74-436B-8A8E-C106FF6C8734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcTricks.RoundTripModelBinding.Testing", "MvcTricks.RoundTripModelBinding.Testing\MvcTricks.RoundTripModelBinding.Testing.csproj", "{08757902-30B3-4285-9C99-80107BBB2E04}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08C879CD-E122-4AFD-9D64-B17708D159EC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget_Packages", "Nuget_Packages", "{6F356B10-6020-4946-9806-B5F121756F8A}"
 	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		MvcTricks.ModelBinding.vsmdi = MvcTricks.ModelBinding.vsmdi
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.0.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.0.0.nupkg
+		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.1.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.1.0.nupkg
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcTricks.RoundTripModelBinding.TestWebsite", "MvcTricks.RoundTripModelBinding.TestWebsite\MvcTricks.RoundTripModelBinding.TestWebsite.csproj", "{5A09FDCD-7F90-46EB-BA40-2F07176239B3}"
-EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs14
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = MvcTricks.RoundTripModelBinding\\MvcTricks.RoundTripModelBinding.csproj
-		SccProjectName1 = MvcTricks.RoundTripModelBinding
-		SccLocalPath1 = MvcTricks.RoundTripModelBinding
-		SccProjectUniqueName2 = MvcTricks.RoundTripModelBinding.Testing\\MvcTricks.RoundTripModelBinding.Testing.csproj
-		SccProjectName2 = MvcTricks.RoundTripModelBinding.Testing
-		SccLocalPath2 = MvcTricks.RoundTripModelBinding.Testing
-		SccProjectUniqueName3 = MvcTricks.RoundTripModelBinding.TestWebsite\\MvcTricks.RoundTripModelBinding.TestWebsite.csproj
-		SccProjectName3 = MvcTricks.RoundTripModelBinding.TestWebsite
-		SccLocalPath3 = MvcTricks.RoundTripModelBinding.TestWebsite
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MvcTricks.ModelBinding.vsmdi
 	EndGlobalSection
@@ -42,14 +22,6 @@ Global
 		{04C23517-FC74-436B-8A8E-C106FF6C8734}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04C23517-FC74-436B-8A8E-C106FF6C8734}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04C23517-FC74-436B-8A8E-C106FF6C8734}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08757902-30B3-4285-9C99-80107BBB2E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08757902-30B3-4285-9C99-80107BBB2E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08757902-30B3-4285-9C99-80107BBB2E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08757902-30B3-4285-9C99-80107BBB2E04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A09FDCD-7F90-46EB-BA40-2F07176239B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A09FDCD-7F90-46EB-BA40-2F07176239B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A09FDCD-7F90-46EB-BA40-2F07176239B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A09FDCD-7F90-46EB-BA40-2F07176239B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

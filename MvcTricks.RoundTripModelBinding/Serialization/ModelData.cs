@@ -107,9 +107,16 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         {
             if (string.IsNullOrWhiteSpace(serialized))
                 return null;
-            var json = Archiving.Archiver.Unarchive(serialized);
-            var model = Serializer.Deserialize(json, modelType);
-            return model;
+            // Trap bad base64:
+            try
+            {
+                var json = Archiving.Archiver.Unarchive(serialized);
+                var model = Serializer.Deserialize(json, modelType);
+                return model;
+            }
+            catch {
+                return null;
+            }
         }
         
     }
