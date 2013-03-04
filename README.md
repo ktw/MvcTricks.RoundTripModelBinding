@@ -18,8 +18,17 @@ Currently these custom converters (serializers) are implemented:<br />
 <h1>Warning!</h1>
 Do not use it on classes which are lazy loadable, like NHibernate entities.<br />
 Bad things will happen.<br />
+<br />
+<hr />
 
 <h1>Getting started - The easy way</h1>
+
+<b>Download the package from NuGet</b><br />
+<br>
+Search for "MvcTricks.RoundTripModelBinding" in your IDE, or run this packagemanager command:<br />
+PM> Install-Package MvcTricks.RoundTripModelBinding<br>
+<br />
+
 <b>Register the modelbinder</b><br />
 
 Method 1, setting the modelbinder as always on, using default settings:<br />
@@ -62,7 +71,9 @@ protected void Application_Start()
 <br />
 See http://msdn.microsoft.com/en-us/library/system.security.cryptography.aesmanaged.aspx for info on the AesManaged class.<br />
 <br />
-Use the modelbinder<br />
+<br />
+<b>Use the modelbinder</b><br />
+<br />
 The model will automatically be filled with data, before it is returned to the action method.<br />
 
 Method 1, Using the modelbinder to persist the model, using a MvcForm extension:<br />
