@@ -72,6 +72,20 @@ protected void Application_Start()
 See http://msdn.microsoft.com/en-us/library/system.security.cryptography.aesmanaged.aspx for info on the AesManaged class.<br />
 <br />
 <br />
+<b>Register the namespace in web.config</b><br />
+<pre>
+&lt;configuration&gt;
+    &lt;system.web&gt;
+        &lt;namespaces&gt;
+            &lt;pages&gt;
+                &lt;add namespace="MvcTricks.RoundTripModelBinding" /&gt;
+            &lt;/pages&gt;
+        &lt;/namespaces&gt;
+    &lt;/system.web&gt;
+&lt;/configuration&gt;
+</pre>
+<br />
+<br />
 <b>Use the modelbinder</b><br />
 <br />
 The model will automatically be filled with data, before it is returned to the action method.<br />
