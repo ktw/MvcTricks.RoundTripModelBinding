@@ -5,7 +5,6 @@ using System.Text;
 using System.Web.Mvc;
 using Serialization = MvcTricks.RoundTripModelBinding.Serialization;
 using System.Linq.Expressions;
-using System.Web.Script.Serialization;
 
 namespace System.Web.Mvc
 {
