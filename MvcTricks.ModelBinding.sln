@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget_Packages", "Nuget_Pac
 		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.0.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.0.0.nupkg
 		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.1.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.1.0.nupkg
 		Nuget_Packages\MvcTricks.RoundTripModelBinding.1.2.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.1.2.0.nupkg
+		Nuget_Packages\MvcTricks.RoundTripModelBinding.2.0.0.nupkg = Nuget_Packages\MvcTricks.RoundTripModelBinding.2.0.0.nupkg
 	EndProjectSection
 EndProject
 Global
