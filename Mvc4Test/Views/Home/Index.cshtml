@@ -1,0 +1,29 @@
+﻿@model Mvc4Test.Models.IndexModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm().AppendRoundTripModel(ViewContext)) {
+
+    <div>E-mail:<br />
+        @Model.Email<br />
+        <br />
+        Ip:<br />
+        @Model.IpAddress<br />
+        <br />
+        Date:<br />
+        <br />
+        @Model.Date<br />
+        <br />
+        @foreach (var x in Model.Children)
+        {
+            <text>Child index:</text><br />
+            @x.Index<br />
+        }
+
+        <input type="submit" value="Submit" />
+    </div>
+}

@@ -46,6 +46,8 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         /// <returns>Returns the model.</returns>
         public static T Deserialize<T>(HttpRequestBase request)
         {
+            if (request == null)
+                return default(T);
             return Deserialize<T>(request, null);
         }
 
@@ -58,6 +60,8 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         /// <returns>Returns the model.</returns>
         public static T Deserialize<T>(HttpRequestBase request, string key)
         {
+            if ((request == null) || (string.IsNullOrWhiteSpace(key)))
+                return default(T);
             var serialized = request[key];
             return Deserialize<T>(serialized);
         }
@@ -70,6 +74,8 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         /// <returns>Returns the model.</returns>
         public static T Deserialize<T>(string serialized)
         {
+            if (string.IsNullOrWhiteSpace(serialized))
+                return default(T);
             return (T)Deserialize(typeof(T), serialized);
         }
 
@@ -81,6 +87,8 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         /// <returns>Returns the model.</returns>
         public static object Deserialize(Type modelType, HttpRequestBase request)
         {
+            if ((modelType == null) || (request == null))
+                return null;
             return Deserialize(modelType, request, TypeManagement.TypeManager.GetTypeId(modelType));
         }
 
@@ -93,6 +101,8 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         /// <returns>Returns the model.</returns>
         public static object Deserialize(Type modelType, HttpRequestBase request, string key)
         {
+            if ((modelType == null) || (request == null) || (string.IsNullOrWhiteSpace(key)))
+                return null;
             var serialized = request[key];
             return Deserialize(modelType, serialized);
         }
@@ -105,7 +115,8 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         /// <returns>Returns the model.</returns>
         public static object Deserialize(Type modelType, string serialized)
         {
-            if (string.IsNullOrWhiteSpace(serialized))
+            // Check for null and bad input:
+            if ((modelType == null) || (string.IsNullOrWhiteSpace(serialized)))
                 return null;
             // Trap bad base64:
             try

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
 using MvcTricks.RoundTripModelBinding.Serialization;
 
 namespace MvcTricks.RoundTripModelBinding
@@ -34,11 +33,6 @@ namespace MvcTricks.RoundTripModelBinding
         /// Gets the storage mode for the model.
         /// </summary>
         public StorageModes StorageMode { get; private set; }
-        
-        /// <summary>
-        /// Gets the javascript converters used.
-        /// </summary>
-        public IEnumerable<JavaScriptConverter> JavascriptConverters { get; private set; }
         
         /// <summary>
         /// Gets or sets the default configuration.
@@ -85,7 +79,7 @@ namespace MvcTricks.RoundTripModelBinding
         /// Initializes a new instance of the <see cref="Configuration"/> class.
         /// </summary>
         public Configuration()
-            : this(DEFAULT_STORAGE_MODE, null, null, null)
+            : this(DEFAULT_STORAGE_MODE, null, null)
         {
         }
 
@@ -94,26 +88,7 @@ namespace MvcTricks.RoundTripModelBinding
         /// </summary>
         /// <param name="storageMode">The storage mode.</param>
         public Configuration(StorageModes storageMode)
-            : this(storageMode, null, null, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Configuration"/> class.
-        /// </summary>
-        /// <param name="javaScriptConverters">The java script converters.</param>
-        public Configuration(IEnumerable<JavaScriptConverter> javaScriptConverters)
-            : this(DEFAULT_STORAGE_MODE, null, null, javaScriptConverters)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Configuration"/> class.
-        /// </summary>
-        /// <param name="storageMode">The storage mode.</param>
-        /// <param name="javaScriptConverters">The java script converters.</param>
-        public Configuration(StorageModes storageMode, IEnumerable<JavaScriptConverter> javaScriptConverters)
-            : this(storageMode, null, null, javaScriptConverters)
+            : this(storageMode, null, null)
         {
         }
 
@@ -124,18 +99,6 @@ namespace MvcTricks.RoundTripModelBinding
         /// <param name="encryptionKey">The encryption key.</param>
         /// <param name="encryptionIV">The encryption IV.</param>
         public Configuration(StorageModes storageMode, byte[] encryptionKey, byte[] encryptionIV)
-            : this(storageMode, encryptionKey, encryptionIV, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Configuration"/> class.
-        /// </summary>
-        /// <param name="storageMode">The storage mode.</param>
-        /// <param name="encryptionKey">The encryption key.</param>
-        /// <param name="encryptionIV">The encryption IV.</param>
-        /// <param name="javaScriptConverters">The java script converters.</param>
-        public Configuration(StorageModes storageMode, byte[] encryptionKey, byte[] encryptionIV, IEnumerable<JavaScriptConverter> javaScriptConverters)
         {
             this.StorageMode = storageMode;
             if ((encryptionKey != null) || (encryptionIV != null))
@@ -145,23 +108,33 @@ namespace MvcTricks.RoundTripModelBinding
             }
             else
                 SetDefaultEncryptionSettings();
-            SetJavascriptConverters(javaScriptConverters);
-        }
-
-        private void SetJavascriptConverters(IEnumerable<JavaScriptConverter> javaScriptConverters)
-        {
-            var defaultList = new List<JavaScriptConverter>(new JavaScriptConverter[] {
-                new DateTimeConverter()
-            });
-            if (javaScriptConverters != null)
-                defaultList.AddRange(javaScriptConverters);
-            this.JavascriptConverters = defaultList;
         }
 
         private void SetDefaultEncryptionSettings()
         {
             this.EncryptionKey = Encoding.Default.GetBytes(Guid.NewGuid().ToString("N"));
             this.EncryptionIV = Encoding.Default.GetBytes(Guid.NewGuid().ToString("N").Substring(0, 16));                                    
+        }
+
+        /// <summary>
+        /// Registers a pair of delegates to handle serialization and deserialization for a specific type.
+        /// </summary>
+        /// <typeparam name="T">The handled type.</typeparam>
+        /// <param name="serializer">Serialization method.</param>
+        /// <param name="deserializer">Deserialization method.</param>
+        public static void RegisterSerializationHandlerFor<T>(Func<T, string> serializer, Func<string, T> deserializer)
+        {
+            Serialization.Serializer.RegisterHandler(serializer, deserializer);
+        }
+
+        /// <summary>
+        /// Registers a serialization handler, to handle serialization and deserialization for a specific type.
+        /// </summary>
+        /// <typeparam name="T">The handled type.</typeparam>
+        /// <param name="handler">The handler.</param>
+        public static void RegisterSerializationHandlerFor<T>(ISerializationHandler<T> handler)
+        {
+            RegisterSerializationHandlerFor<T>(handler.Serialize, handler.Deserialize);
         }
 
     }

@@ -2,34 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
+using ServiceStack.Text;
 
 namespace MvcTricks.RoundTripModelBinding.Serialization
 {
     internal class Serializer
     {
 
-        private static JavaScriptSerializer GetSerializer()
+        static Serializer()
         {
-            var serializer = new JavaScriptSerializer();
-            serializer.RegisterConverters(Configuration.Default.JavascriptConverters);
-            return serializer;
+            // Register the common troublemakers:
+            RegisterHandler<System.Net.Mail.MailAddress>(
+                s => { return s.ToString(); }, 
+                d => { return new System.Net.Mail.MailAddress(d); }
+            );
+            RegisterHandler<System.Net.IPAddress>(
+                s => { return s.ToString(); },
+                d => { return System.Net.IPAddress.Parse(d); }
+            );
+        }
+
+        internal static void RegisterHandler<T>(Func<T, string> serializer, Func<string, T> deserializer)
+        {
+            JsConfig<T>.SerializeFn = s => { return ((serializer == null) ? null : serializer(s)); };
+            JsConfig<T>.DeSerializeFn = d => { return ((deserializer == null) ? default(T) : deserializer(d)); };
+        }
+
+        internal static void RegisterHandler<T>(ISerializationHandler<T> handler)
+        {
+            RegisterHandler<T>(handler.Serialize, handler.Deserialize);
         }
 
         internal static string Serialize(object data)
         {
-            return GetSerializer().Serialize(data);
+            return TypeSerializer.SerializeToString(data);
         }
 
         internal static T Deserialize<T>(string data)
         {
-            return GetSerializer().Deserialize<T>(data);
+            return TypeSerializer.DeserializeFromString<T>(data);
         }
 
         internal static object Deserialize(string data, Type targetType)
         {
-            return GetSerializer().Deserialize(data, targetType);
+            return TypeSerializer.DeserializeFromString(data, targetType);
         }
 
     }
+
 }
