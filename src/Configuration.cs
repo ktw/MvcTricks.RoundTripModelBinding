@@ -116,5 +116,26 @@ namespace MvcTricks.RoundTripModelBinding
             this.EncryptionIV = Encoding.Default.GetBytes(Guid.NewGuid().ToString("N").Substring(0, 16));                                    
         }
 
+        /// <summary>
+        /// Registers a pair of delegates to handle serialization and deserialization for a specific type.
+        /// </summary>
+        /// <typeparam name="T">The handled type.</typeparam>
+        /// <param name="serializer">Serialization method.</param>
+        /// <param name="deserializer">Deserialization method.</param>
+        public static void RegisterSerializationHandlerFor<T>(Func<T, string> serializer, Func<string, T> deserializer)
+        {
+            Serialization.Serializer.RegisterHandler(serializer, deserializer);
+        }
+
+        /// <summary>
+        /// Registers a serialization handler, to handle serialization and deserialization for a specific type.
+        /// </summary>
+        /// <typeparam name="T">The handled type.</typeparam>
+        /// <param name="handler">The handler.</param>
+        public static void RegisterSerializationHandlerFor<T>(ISerializationHandler<T> handler)
+        {
+            RegisterSerializationHandlerFor<T>(handler.Serialize, handler.Deserialize);
+        }
+
     }
 }

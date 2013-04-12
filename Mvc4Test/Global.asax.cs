@@ -32,6 +32,11 @@ namespace Mvc4Test
                     Encoding.Default.GetBytes("Donec tincidunt.") // 16 bytes IV
             );
 
+            MvcTricks.RoundTripModelBinding.Configuration.RegisterSerializationHandlerFor<System.Net.Mail.MailAddress>(
+                s => { return "svend@svendsen.com"; }, 
+                d => { return new System.Net.Mail.MailAddress("poul@poulsen.dk"); }
+            );
+
             // Add the modelbinder as the default modelbinder:
             ModelBinders.Binders.DefaultBinder = new MvcTricks.RoundTripModelBinding.DefaultModelBinder();
 

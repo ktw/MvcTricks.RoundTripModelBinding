@@ -11,12 +11,26 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
 
         static Serializer()
         {
-            JsConfig<System.Net.Mail.MailAddress>.SerializeFn = a => a.ToString();
-            JsConfig<System.Net.Mail.MailAddress>.DeSerializeFn = a => { return new System.Net.Mail.MailAddress(a); };
+            // Register the common troublemakers:
+            RegisterHandler<System.Net.Mail.MailAddress>(
+                s => { return s.ToString(); }, 
+                d => { return new System.Net.Mail.MailAddress(d); }
+            );
+            RegisterHandler<System.Net.IPAddress>(
+                s => { return s.ToString(); },
+                d => { return System.Net.IPAddress.Parse(d); }
+            );
+        }
 
-            JsConfig<System.Net.IPAddress>.SerializeFn = a => a.ToString();
-            JsConfig<System.Net.IPAddress>.DeSerializeFn = a => { return System.Net.IPAddress.Parse(a); };
+        internal static void RegisterHandler<T>(Func<T, string> serializer, Func<string, T> deserializer)
+        {
+            JsConfig<T>.SerializeFn = s => { return ((serializer == null) ? null : serializer(s)); };
+            JsConfig<T>.DeSerializeFn = d => { return ((deserializer == null) ? default(T) : deserializer(d)); };
+        }
 
+        internal static void RegisterHandler<T>(ISerializationHandler<T> handler)
+        {
+            RegisterHandler<T>(handler.Serialize, handler.Deserialize);
         }
 
         internal static string Serialize(object data)
