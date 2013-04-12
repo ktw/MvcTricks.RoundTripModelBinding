@@ -17,6 +17,7 @@ namespace Mvc4Test.Controllers
                 Email = new System.Net.Mail.MailAddress("info@nowhere.com", "Info"), 
                 IpAddress = Dns.Resolve(Dns.GetHostName()).AddressList[0],
                 Date = DateTime.Now,  
+                Date2 = null,
                 Children = new Models.IndexChildModel[] {
                     new Models.IndexChildModel() { Index = 0 },
                     new Models.IndexChildModel() { Index = 1 },

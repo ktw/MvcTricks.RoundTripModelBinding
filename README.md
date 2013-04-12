@@ -8,29 +8,25 @@ It is not an attempt to reinvent asp.net viewstate!
 The main purpose is to avoid using a bunch of hidden values in views, for id's, collections and other values, which might even come from database queries.<br />
 <br />
 <br />
-The current release uses the System.Web.Script.Serialization.JavaScriptSerializer internally.<br />
-So if the JavaScriptSerializer likes it, it is probably usable here too.<br />
-Currently these custom converters (serializers) are implemented:<br />
+The current release uses <a href="https://github.com/ServiceStack/ServiceStack.Text">ServiceStack.Text</a> internally, 
+which is the fastest and most compact text-based serializer for .NET.<br />
+Currently these types have their own serialization methods implemented:<br />
 <ul>
-    <li>DateTimeConverter (DateTime, DateTime?)</li>
-    <li>MailAddressConverter (MailAddress)</li>
+    <li>System.Net.Mail.MailAddress</li>
+    <li>System.Net.IPAddress</li>
 </ul>
 <h1>Warning!</h1>
 Do not use it on classes which are lazy loadable, like NHibernate entities.<br />
 Bad things will happen.<br />
 <br />
 <hr />
-
 <h1>Getting started - The easy way</h1>
-
 <b>Download the package from NuGet</b><br />
 <br>
 Search for "MvcTricks.RoundTripModelBinding" in your IDE, or run this packagemanager command:<br />
 PM> Install-Package MvcTricks.RoundTripModelBinding<br>
 <br />
-
 <b>Register the modelbinder</b><br />
-
 Method 1, setting the modelbinder as always on, using default settings:<br />
 Edit your Global.asax.cs file, and add the following to the Application_Start method:<br />
 <br />
@@ -71,11 +67,49 @@ protected void Application_Start()
 <br />
 See http://msdn.microsoft.com/en-us/library/system.security.cryptography.aesmanaged.aspx for info on the AesManaged class.<br />
 <br />
+<b>Register custom serialization implementations</b><br />
+<br />
+Method 1, using delegates:<br />
+<br />
+<pre>
+protected void Application_Start()
+{
+    // After the setup code ...
+	MvcTricks.RoundTripModelBinding.Configuration.RegisterSerializationHandlerFor&lt;MyCustomType&gt;(
+		x => { return x.ToString(); }, 
+        x => { return MyCustomType.Parse(x); }
+	);
+}
+</pre>
+<br />
+Method 2, implementing the MvcTricks.RoundTripModelBinding.Serialization.ISerializationHandler&lt;T&gt; interface:
+<pre>
+// Custom implementation:
+public class MyCustomTypeSerializationHandler : MvcTricks.RoundTripModelBinding.Serialization.ISerializationHandler&lt;MyCustomType&gt;
+{
+	
+	public string Serialize(MyCustomType value)
+	{
+		return value.ToString();
+	}
+
+    public MyCustomType Deserialize(string value)
+	{
+		return MyCustomType.Parse(x);
+	}
+
+}
+
+protected void Application_Start()
+{
+    // ... Setup code ...
+	MvcTricks.RoundTripModelBinding.Configuration.RegisterSerializationHandlerFor&lt;MyCustomType&gt;(new MyCustomTypeSerializationHandler());
+}
+</pre>
 <br />
 <b>Use the modelbinder</b><br />
 <br />
-The model will automatically be filled with data, before it is returned to the action method.<br />
-
+The model will automatically be filled with data, before it is returned to the action method.<br />s
 Method 1, Using the modelbinder to persist the model, using a MvcForm extension:<br />
 <pre>
 &lt;% using (Html.BeginForm().AppendRoundTripModel(ViewContext)) { %&gt;
