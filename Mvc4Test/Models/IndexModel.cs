@@ -14,6 +14,7 @@ namespace Mvc4Test.Models
         public IPAddress IpAddress { get; set; }
         public DateTime Date { get; set; }
         public IndexChildModel[] Children { get; set; }
+        public DateTime? Date2 { get; set; }
 
     }
 
