@@ -9,6 +9,16 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
     internal class Serializer
     {
 
+        static Serializer()
+        {
+            JsConfig<System.Net.Mail.MailAddress>.SerializeFn = a => a.ToString();
+            JsConfig<System.Net.Mail.MailAddress>.DeSerializeFn = a => { return new System.Net.Mail.MailAddress(a); };
+
+            JsConfig<System.Net.IPAddress>.SerializeFn = a => a.ToString();
+            JsConfig<System.Net.IPAddress>.DeSerializeFn = a => { return System.Net.IPAddress.Parse(a); };
+
+        }
+
         internal static string Serialize(object data)
         {
             return TypeSerializer.SerializeToString(data);
@@ -25,4 +35,5 @@ namespace MvcTricks.RoundTripModelBinding.Serialization
         }
 
     }
+
 }

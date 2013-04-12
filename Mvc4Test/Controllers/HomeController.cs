@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace Mvc4Test.Controllers
         {
             return View(new Models.IndexModel() { 
                 Email = new System.Net.Mail.MailAddress("info@nowhere.com", "Info"), 
+                IpAddress = Dns.Resolve(Dns.GetHostName()).AddressList[0],
                 Date = DateTime.Now,  
                 Children = new Models.IndexChildModel[] {
                     new Models.IndexChildModel() { Index = 0 },
